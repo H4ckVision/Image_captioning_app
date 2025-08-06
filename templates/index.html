@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Subhan's Image Captioning App</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <div class="overlay"></div>
+
+  <div class="container text-center mt-5 text-white">
+    <h1 class="display-4 fw-bold">Welcome to <span class="text-info">Subhan's</span> Image Captioning App</h1>
+    <p class="lead">Upload an image and see what the AI thinks it describes!</p>
+
+    <form method="POST" enctype="multipart/form-data" class="my-4">
+      <div class="input-group mb-3 justify-content-center">
+        <input type="file" name="file" class="form-control w-50">
+        <button type="submit" class="btn btn-primary">
+          <i class="fas fa-magic"></i> Generate Caption
+        </button>
+      </div>
+    </form>
+
+    {% if image_path %}
+      <div class="card bg-light text-dark p-3 mb-3 mx-auto" style="max-width: 600px;">
+        <img src="{{ image_path }}" class="card-img-top rounded" style="max-height: 300px; object-fit: contain;">
+        <div class="card-body">
+          <h5 class="card-title"><i class="fas fa-quote-left"></i> Generated Caption:</h5>
+          <p class="card-text fs-5">"{{ caption }}"</p>
+
+          {% if audio_path %}
+            <h6 class="mt-4"><i class="fas fa-volume-up"></i> Listen:</h6>
+            <audio controls autoplay>
+              <source src="{{ audio_path }}" type="audio/mp3">
+              Your browser does not support the audio element.
+            </audio>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+
+
+</body>
+</html>
